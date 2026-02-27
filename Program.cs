@@ -1,3 +1,8 @@
+using FT1.Data;
+using FT1.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 namespace FT1
 {
     public class Program
@@ -5,6 +10,11 @@ namespace FT1
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddDbContext<ApplicationDBContext>(options =>
+            options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
