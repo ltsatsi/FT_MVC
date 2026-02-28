@@ -14,7 +14,8 @@ namespace FT1
             builder.Services.AddDbContext<ApplicationDBContext>(options =>
             options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>();
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
+                .AddEntityFrameworkStores<ApplicationDBContext>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

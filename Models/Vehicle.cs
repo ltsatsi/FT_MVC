@@ -1,7 +1,10 @@
-﻿namespace FT1.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FT1.Models
 {
     public class Vehicle
     {
+        [Key]
         public Guid VehicleId { get; set; }
         public string Registration { get; set; } = null!;   
         public string Make { get; set; } = null!;
@@ -13,7 +16,6 @@
         // Navigation properties
         public Guid Id { get; set; }
         public ApplicationUser ApplicationUser { get; set; } = new();
-        public Guid FillUpId { get; set; }  
         public FillUp FillUp { get; set; } = new(); 
     }
 }
