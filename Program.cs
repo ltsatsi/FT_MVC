@@ -1,5 +1,7 @@
 using FT1.Data;
+using FT1.Interfaces;
 using FT1.Models;
+using FT1.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +18,9 @@ namespace FT1
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<ApplicationDBContext>();
+
+            builder.Services.AddScoped<IVehicleRepo, VehicleRepo>();
+            builder.Services.AddScoped<IFillUpRepo, FillUpRepo>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
