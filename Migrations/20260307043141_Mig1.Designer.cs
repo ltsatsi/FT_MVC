@@ -11,14 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FT1.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20260228055624_Mig1")]
+    [Migration("20260307043141_Mig1")]
     partial class Mig1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
+            modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
 
             modelBuilder.Entity("FT1.Models.ApplicationUser", b =>
                 {

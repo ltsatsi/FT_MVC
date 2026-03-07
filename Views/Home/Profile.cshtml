@@ -1,0 +1,24 @@
+﻿@model FT1.ViewModels.ProfileViewModel
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col col-md-10">
+            <div class="row">
+                <!-- Profile image -->
+                <div class="col-2">
+                    <img src="https://placehold.co/100x100" />
+                </div>
+
+                <!-- user details -->
+                <div class="col">
+                    <h4>@Model.FirstName @(Model.LastName ?? "")</h4>
+                    <p class="text-muted"><span class="text-decoration-underline text-primary">@Model.Email</span> - Joined @Model.CreatedOn.ToString("d MMM, yyyy")</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,6 +12,6 @@ namespace FT1.Models
 
 
         // Navigation properties
-        public ICollection<Vehicle> Vehicles { get; set; } = new List<Vehicle>();
+        public ICollection<Vehicle>? Vehicles { get; set; } = new List<Vehicle>();
     }
 }
