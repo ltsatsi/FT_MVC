@@ -18,6 +18,6 @@ namespace FT1.Models
         // Navigation properties
         [ForeignKey("VehicleId")]
         public Guid VehicleId { get; set; }
-        public Vehicle Vehicle { get; set; } = new();
+        public Vehicle Vehicle { get; set; }
     }
 }

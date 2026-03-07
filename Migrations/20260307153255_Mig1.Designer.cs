@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FT1.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20260307043141_Mig1")]
+    [Migration("20260307153255_Mig1")]
     partial class Mig1
     {
         /// <inheritdoc />
@@ -140,7 +140,7 @@ namespace FT1.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("ApplicationUserId")
+                    b.Property<Guid?>("ApplicationUserId")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("CreatedOn")
@@ -312,9 +312,7 @@ namespace FT1.Migrations
                 {
                     b.HasOne("FT1.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Vehicles")
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ApplicationUserId");
 
                     b.Navigation("ApplicationUser");
                 });
@@ -377,8 +375,7 @@ namespace FT1.Migrations
 
             modelBuilder.Entity("FT1.Models.Vehicle", b =>
                 {
-                    b.Navigation("FillUp")
-                        .IsRequired();
+                    b.Navigation("FillUp");
                 });
 #pragma warning restore 612, 618
         }

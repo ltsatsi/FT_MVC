@@ -30,7 +30,7 @@ namespace FT1.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpGet]
         [Authorize]
         public async Task<IActionResult> Profile()
         {

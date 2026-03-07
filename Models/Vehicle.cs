@@ -15,7 +15,7 @@ namespace FT1.Models
 
         // Navigation properties
         public Guid Id { get; set; }
-        public ApplicationUser ApplicationUser { get; set; } = new();
-        public FillUp FillUp { get; set; } = new(); 
+        public ApplicationUser? ApplicationUser { get; set; }
+        public FillUp? FillUp { get; set; } 
     }
 }

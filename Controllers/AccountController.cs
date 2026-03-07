@@ -1,5 +1,6 @@
 ﻿using FT1.Models;
 using FT1.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -73,10 +74,11 @@ namespace FT1.Controllers
 
             await signInManager.PasswordSignInAsync(user, model.Password, isPersistent: false, lockoutOnFailure: false);
 
-            return RedirectToAction(nameof(Index), "Home");
+            return RedirectToAction(actionName: "Profile", controllerName: "Home");
         }
 
         [HttpPost]
+        [Authorize]
         public new async Task<IActionResult> SignOut()  
         {
             await signInManager.SignOutAsync();

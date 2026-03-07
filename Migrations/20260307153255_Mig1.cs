@@ -171,7 +171,7 @@ namespace FT1.Migrations
                     CreatedOn = table.Column<DateTime>(type: "TEXT", nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "TEXT", nullable: true),
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    ApplicationUserId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    ApplicationUserId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -180,8 +180,7 @@ namespace FT1.Migrations
                         name: "FK_Vehicles_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
