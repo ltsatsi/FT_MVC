@@ -247,8 +247,7 @@ namespace FT1.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_FillUps_VehicleId",
                 table: "FillUps",
-                column: "VehicleId",
-                unique: true);
+                column: "VehicleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Vehicles_ApplicationUserId",

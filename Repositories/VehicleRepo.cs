@@ -28,9 +28,7 @@ namespace FT1.Repositories
 
         public async Task<IEnumerable<Vehicle>> GetAllAsync()
         {
-            var vehicles = await context.Vehicles
-                .Include(f => f.FillUp)
-                .ToListAsync();
+            var vehicles = await context.Vehicles.ToListAsync();
 
             return vehicles;
         }

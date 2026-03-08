@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FT1.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20260307153255_Mig1")]
+    [Migration("20260307163751_Mig1")]
     partial class Mig1
     {
         /// <inheritdoc />
@@ -128,8 +128,7 @@ namespace FT1.Migrations
 
                     b.HasKey("FillUpId");
 
-                    b.HasIndex("VehicleId")
-                        .IsUnique();
+                    b.HasIndex("VehicleId");
 
                     b.ToTable("FillUps");
                 });
@@ -300,8 +299,8 @@ namespace FT1.Migrations
             modelBuilder.Entity("FT1.Models.FillUp", b =>
                 {
                     b.HasOne("FT1.Models.Vehicle", "Vehicle")
-                        .WithOne("FillUp")
-                        .HasForeignKey("FT1.Models.FillUp", "VehicleId")
+                        .WithMany("FillUps")
+                        .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -375,7 +374,7 @@ namespace FT1.Migrations
 
             modelBuilder.Entity("FT1.Models.Vehicle", b =>
                 {
-                    b.Navigation("FillUp");
+                    b.Navigation("FillUps");
                 });
 #pragma warning restore 612, 618
         }
