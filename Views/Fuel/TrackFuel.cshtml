@@ -48,7 +48,7 @@
             <div class="card stat-card shadow-sm border-0">
                 <div class="card-body">
                     <small class="text-muted">Fuel Consumption</small>
-                    <h3 class="fw-bold" style="color:#0b1f3b;">@Model.FuelConsumption km/l</h3>
+                    <h3 class="fw-bold" style="color:#0b1f3b;">@Model.FuelConsumption.ToString("f") km/l</h3>
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@
             <div class="card highlight-card shadow-sm border-0" style="background:#ff8c00;">
                 <div class="card-body">
                     <small>Total Fuel Cost</small>
-                    <h3 class="fw-bold">R @Model.TotalFuelPrice</h3>
+                    <h3 class="fw-bold">R @Model.TotalFuelPrice.ToString("f")</h3>
                 </div>
             </div>
         </div>

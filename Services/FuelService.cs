@@ -19,9 +19,12 @@ namespace FT1.Services
         public double FuelConsumption(IEnumerable<FillUp> fillUps)
         {
             var sortedFillUps = fillUps.OrderBy(f => f.Odometer).ToList();
-            var distance = DistanceCovered(sortedFillUps);
 
-            var latestFill = sortedFillUps[^1].Litre;
+            if (sortedFillUps.Count < 2)
+                return 0;
+
+            var distance = DistanceCovered(sortedFillUps);
+            var latestFill = sortedFillUps.Last().Litre;
 
             var fuelComsumption = distance / latestFill;
 

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace FT1.Controllers
 {
+    [Authorize]
     public class VehicleController : Controller
     {
         private readonly IVehicleRepo vehicleRepo;
@@ -17,7 +18,6 @@ namespace FT1.Controllers
             this.userManager = userManager;
         }
 
-        [Authorize]
         public async Task<IActionResult> Index()
         {
             var vehicles = await vehicleRepo.GetAllAsync();
@@ -32,7 +32,13 @@ namespace FT1.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var vehicle = await vehicleRepo.GetByIdAsync(id);
+            return View(vehicle);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
             var user = await userManager.GetUserAsync(User);
@@ -41,11 +47,10 @@ namespace FT1.Controllers
                 return RedirectToAction(actionName: "Login", controllerName: "Account");
 
             ViewData["UserId"] = user.Id;
-            return View();
+            return View(new Vehicle());
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Create(Vehicle vehicleModel)
         {
             if (!ModelState.IsValid)
@@ -57,6 +62,47 @@ namespace FT1.Controllers
             vehicleModel = await vehicleRepo.CreateAsync(vehicleModel);    
 
             return RedirectToAction(nameof(Index), "Home");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var vehicle = await vehicleRepo.GetByIdAsync(id);
+
+            var user = await userManager.GetUserAsync(User);
+
+            if (user is null)
+                return RedirectToAction(actionName: "Login", controllerName: "Account");
+
+            ViewData["UserId"] = user.Id;
+
+            return View(vehicle);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Vehicle vehicleModel)
+        {
+            if (!ModelState.IsValid)
+                return View(vehicleModel);
+
+            vehicleModel.ModifiedOn = DateTime.UtcNow;
+            await vehicleRepo.UpdateAsync(vehicleModel);
+
+            return RedirectToAction(actionName: "TrackFuel", controllerName: "Fuel");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var vehicle = await vehicleRepo.GetByIdAsync(id);
+            return View(vehicle);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(Vehicle vehicleModel)
+        {
+            await vehicleRepo.DeleteAsync(vehicleModel);
+            return RedirectToAction(actionName: "TrackFuel", controllerName: "Fuel");
         }
     }
 }
