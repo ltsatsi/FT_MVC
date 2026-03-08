@@ -103,28 +103,28 @@ This ensures realistic tracking based on actual vehicle usage.
 ## Application Screenshots
 
 ### Landing page (Signed out)
-![Landing](wwwroot/images/landing_page2.png)
+<img src="wwwroot/images/landing_page2.png" width="40%">
 
 ### Landing page (Signed in)
-![Landing](wwwroot/images/landing_page1.png)
+<img src="wwwroot/images/landing_page1.png" width="40%">
 
 ### Dashboard
-![Dashboard](wwwroot/images/statistics1.png)
+<img src="wwwroot/images/statistics1.png" width="40%">
 
 Displays key statistics and fuel usage insights.
 
 ### Vehicles
-![Vehicles](wwwroot/images/vehicles.png)
+<img src="wwwroot/images/vehicles.png" width="40%">
 
 Users can manage multiple vehicles.
 
 ### Fill-Up History
-![FillUps](wwwroot/images/fill-up_history.png)
+<img src="wwwroot/images/fill-up_history.png" width="40%">
 
 Users record fuel purchases and odometer readings.
 
 ### Statistics
-![Statistics](wwwroot/images/statistics2.png)
+<img src="wwwroot/images/statistics2.png" width="40%">
 
 Shows calculated fuel consumption and trends.
 
@@ -134,24 +134,23 @@ Shows calculated fuel consumption and trends.
 
 ```
 FuelTrackingApp
-?
-??? Controllers
-?   ??? VehicleController
-?   ??? FillUpController
-?   ??? DashboardController
-?
-??? Models
-?   ??? Vehicle
-?   ??? FillUp
-?
-??? ViewModels
-?
-??? Repositories
-?
-??? Data
-?   ??? ApplicationDbContext
-?
-??? Views
+|
+--- Controllers
+    |--- FillUpController
+    |--- DashboardController
+|
+--- Models
+    |--- Vehicle
+    |--- FillUp
+|
+--- ViewModels
+|
+--- Repositories
+|
+--- Data
+    |--- ApplicationDbContext
+|
+--- Views
 ```
 
 ---
@@ -199,7 +198,7 @@ This project highlights my ability to:
 ## Author
 
 Lebogang Tsatsi  
-Backend Developer — C# / .NET
+Backend Developer â€” C# / .NET
 
 GitHub: https://github.com/ltsatsi
 
