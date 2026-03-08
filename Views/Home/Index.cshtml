@@ -2,7 +2,123 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="landing-page-container text-center py-5">
+
+    <!-- Hero Section -->
+    @if (!User.Identity!.IsAuthenticated)
+    {
+        <section class="cta py-5 bg-light">
+            <div class="container">
+                <h2 class="mb-3" style="color:#26408B;">Ready to improve your fuel tracking?</h2>
+                <p class="mb-4 text-secondary">
+                    Log in or register to start tracking and analyzing your fuel consumption efficiently.
+                </p>
+                <a href="@Url.Action("Login", "Account")" class="btn btn-outline-primary">Login</a>
+                <a href="@Url.Action("Register", "Account")" class="btn btn-primary me-2">Register</a>
+            </div>
+        </section>
+    }
+    else
+    {
+        <section class="hero py-5">
+            <div class="container">
+                <h1 class="display-4 mb-3" style="color:#26408B; font-weight:700;">Welcome to FT1</h1>
+                <p class="lead mb-4" style="color:#495057;">
+                    Learn how to efficiently track and manage fuel usage for your vehicles.
+                </p>
+                <a href="@Url.Action("TrackFuel", "Fuel")" class="btn btn-primary btn-lg">
+                    Start Tracking
+                </a>
+            </div>
+        </section>
+    }
+
+    <!-- Features Section -->
+    <section class="features py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header" style="background-color:#26408B; color:#dee2e6;">Track Fuel</div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                Keep a detailed log of your vehicle refuels and monitor consumption trends.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header" style="background-color:#26408B; color:#dee2e6;">Analytics</div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                Get insights with fuel usage statistics, averages, and distance tracking.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header" style="background-color:#26408B; color:#dee2e6;">User Friendly</div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                Simple and intuitive interface designed for quick data entry and easy navigation.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
+
+<style>
+    /* Landing Page Styling */
+
+    .card {
+        border: 1px solid #dee2e6;
+        background-color: #ffffff;
+    }
+
+    .card-header {
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+
+    .btn-primary {
+        background-color: #ff8c00;
+        border-color: #ff8c00;
+        color: #ffffff;
+        font-weight: 500;
+    }
+
+        .btn-primary:hover {
+            background-color: #ffa733;
+            border-color: #ffa733;
+            color: #ffffff;
+        }
+
+    .btn-outline-primary {
+        border-color: #26408B;
+        color: #26408B;
+        font-weight: 500;
+    }
+
+        .btn-outline-primary:hover {
+            background-color: #26408B;
+            border-color: #26408B;
+            color: #ffffff;
+        }
+
+    .hero h1 {
+        font-size: 3rem;
+    }
+
+    .features .card {
+        transition: transform 0.2s;
+    }
+
+        .features .card:hover {
+            transform: translateY(-5px);
+        }
+</style>

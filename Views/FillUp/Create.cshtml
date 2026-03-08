@@ -1,57 +1,118 @@
 ﻿@model FT1.Models.FillUp
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Add Fill Up";
 }
 
-<h4>FillUp</h4>
-<hr />
+<div class="container mt-4">
 
+    <div class="row justify-content-center">
+        <div class="col-md-6">
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="StationName" class="control-label"></label>
-                <input asp-for="StationName" class="form-control" />
-                <span asp-validation-for="StationName" class="text-danger"></span>
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+
+                    <h4 class="fw-bold mb-1" style="color:#0b1f3b;">Add Fill Up</h4>
+                    <small class="text-muted">Record a new fuel refill</small>
+
+                    <hr />
+
+                    <form asp-action="Create">
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="StationName" class="form-label"></label>
+                            <input asp-for="StationName"
+                                   class="form-control"
+                                   placeholder="e.g. Shell, Engen, BP" />
+                            <span asp-validation-for="StationName" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Price" class="form-label"></label>
+                            <input asp-for="Price"
+                                   class="form-control"
+                                   placeholder="Total price (R)" />
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Litre" class="form-label"></label>
+                            <input asp-for="Litre"
+                                   class="form-control"
+                                   placeholder="Litres filled" />
+                            <span asp-validation-for="Litre" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Odometer" class="form-label"></label>
+                            <input asp-for="Odometer"
+                                   class="form-control"
+                                   placeholder="Vehicle odometer (km)" />
+                            <span asp-validation-for="Odometer" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="DateOfFill" class="form-label"></label>
+                            <input asp-for="DateOfFill"
+                                   class="form-control"
+                                   type="date" />
+                            <span asp-validation-for="DateOfFill" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="VehicleId" class="form-label"></label>
+                            <select asp-for="VehicleId"
+                                    class="form-select"
+                                    asp-items="ViewBag.VehicleId">
+                            </select>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+
+                            <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
+                                Back
+                            </a>
+
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                Save Fill Up
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Litre" class="control-label"></label>
-                <input asp-for="Litre" class="form-control" />
-                <span asp-validation-for="Litre" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Odometer" class="control-label"></label>
-                <input asp-for="Odometer" class="form-control" />
-                <span asp-validation-for="Odometer" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateOfFill" class="control-label"></label>
-                <input asp-for="DateOfFill" class="form-control" />
-                <span asp-validation-for="DateOfFill" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VehicleId" class="control-label"></label>
-                <select asp-for="VehicleId" class ="form-control" asp-items="ViewBag.VehicleId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+
+        </div>
     </div>
+
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<style>
+
+    .btn-primary {
+        background-color: #ff8c00;
+        border-color: #ff8c00;
+    }
+
+        .btn-primary:hover {
+            background-color: #e67e00;
+            border-color: #e67e00;
+        }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #0b1f3b;
+        box-shadow: 0 0 0 0.15rem rgba(11,31,59,0.15);
+    }
+
+</style>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

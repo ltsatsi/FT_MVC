@@ -1,46 +1,95 @@
 ﻿@model FT1.Models.Vehicle
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Add Vehicle";
 }
 
-<h4>Vehicle</h4>
-<hr />
+<div class="container mt-4">
 
+    <div class="row justify-content-center">
+        <div class="col-md-6">
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Registration" class="control-label"></label>
-                <input asp-for="Registration" class="form-control" placeholder="Reg number (e.g. HPF094FS)" />
-                <span asp-validation-for="Registration" class="text-danger"></span>
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+
+                    <h4 class="fw-bold mb-1" style="color:#0b1f3b;">Add Vehicle</h4>
+                    <small class="text-muted">Register a new vehicle to track fuel usage</small>
+
+                    <hr />
+
+                    <form asp-action="Create">
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Registration" class="form-label"></label>
+                            <input asp-for="Registration"
+                                   class="form-control"
+                                   placeholder="e.g. HPF094FS" />
+                            <span asp-validation-for="Registration" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Make" class="form-label"></label>
+                            <input asp-for="Make"
+                                   class="form-control"
+                                   placeholder="e.g. Audi" />
+                            <span asp-validation-for="Make" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Model" class="form-label"></label>
+                            <input asp-for="Model"
+                                   class="form-control"
+                                   placeholder="e.g. A5 Coupe" />
+                            <span asp-validation-for="Model" class="text-danger"></span>
+                        </div>
+
+                        <input type="hidden" asp-for="Id" value="@ViewData["UserId"]" />
+
+                        <div class="d-flex justify-content-between mt-4">
+
+                            <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
+                                Back
+                            </a>
+
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                Create Vehicle
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Make" class="control-label"></label>
-                <input asp-for="Make" class="form-control" placeholder="Make (e.g. audi)" />
-                <span asp-validation-for="Make" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Model" class="control-label"></label>
-                <input asp-for="Model" class="form-control" placeholder="Model (e.g. Coupe)" />
-                <span asp-validation-for="Model" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="hidden" asp-for="Id" value="@ViewData["UserId"]" />
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+
+        </div>
     </div>
+
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<style>
+
+    .btn-primary {
+        background-color: #ff8c00;
+        border-color: #ff8c00;
+    }
+
+        .btn-primary:hover {
+            background-color: #e67e00;
+            border-color: #e67e00;
+        }
+
+    .form-control:focus {
+        border-color: #0b1f3b;
+        box-shadow: 0 0 0 0.15rem rgba(11,31,59,0.15);
+    }
+
+</style>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

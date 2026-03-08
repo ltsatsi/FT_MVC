@@ -1,6 +1,72 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="container my-5">
+
+    <h1 class="fw-bold mb-4" style="color:#0b1f3b;">@ViewData["Title"]</h1>
+
+    <p class="mb-4 text-muted">
+        At FT1, we value your privacy and are committed to protecting your personal information. This page explains how we collect, use, and safeguard your data.
+    </p>
+
+    <section class="mb-4">
+        <h4 class="fw-semibold mb-2" style="color:#0b1f3b;">Information We Collect</h4>
+        <ul class="list-unstyled ms-3 text-muted">
+            <li>• Personal information you provide when registering (name, email).</li>
+            <li>• Vehicle and fuel usage data to provide dashboard insights.</li>
+            <li>• Cookies and analytics data to improve our services.</li>
+        </ul>
+    </section>
+
+    <section class="mb-4">
+        <h4 class="fw-semibold mb-2" style="color:#0b1f3b;">How We Use Your Information</h4>
+        <ul class="list-unstyled ms-3 text-muted">
+            <li>• To provide, maintain, and improve our services.</li>
+            <li>• To generate your personalized fuel consumption and vehicle reports.</li>
+            <li>• To communicate important updates and support requests.</li>
+        </ul>
+    </section>
+
+    <section class="mb-4">
+        <h4 class="fw-semibold mb-2" style="color:#0b1f3b;">Data Security</h4>
+        <p class="text-muted">
+            We implement industry-standard security measures to protect your data. Access is restricted to authorized personnel only.
+        </p>
+    </section>
+
+    <section class="mb-4">
+        <h4 class="fw-semibold mb-2" style="color:#0b1f3b;">Third-Party Services</h4>
+        <p class="text-muted">
+            We may use third-party services for analytics or hosting. These providers are bound to protect your data in accordance with applicable privacy laws.
+        </p>
+    </section>
+
+    <section>
+        <h4 class="fw-semibold mb-2" style="color:#0b1f3b;">Contact Us</h4>
+        <p class="text-muted">
+            If you have questions about this privacy policy or how your data is handled, please contact us at
+            <span style="color:#ff8c00;">support@ft1.com</span>.
+        </p>
+    </section>
+
+</div>
+
+<style>
+    h1, h4 {
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    ul li {
+        margin-bottom: 0.5rem;
+    }
+
+    section {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+        section:last-child {
+            border-bottom: none;
+        }
+</style>

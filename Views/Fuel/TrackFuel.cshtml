@@ -3,157 +3,167 @@
 <div class="container-fluid">
 
     <!-- Page Title -->
-    <div class="d-flex justify-content-between align-items-center">
-        <div class="mb-3">
-            <h4 class="fw-bold">Fuel Dashboard</h4>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h4 class="fw-bold" style="color:#0b1f3b;">Fuel Dashboard</h4>
             <small class="text-muted">Overview of your fuel activity</small>
         </div>
         <div class="d-flex flex-column align-items-end">
-            <a asp-controller="FillUp" asp-action="Create" class="btn btn-sm btn-dark">Refill</a>
+            <a asp-controller="FillUp" asp-action="Create" class="btn btn-sm btn-primary mb-1">Refill</a>
             <small class="text-muted">Add a new re-fuel</small>
         </div>
     </div>
 
-
     <!-- Statistics -->
     <div class="row g-3 mb-4">
-
-        <div class="col-6">
-            <div class="card shadow-sm border-0 stat-card">
+        @* Stat Cards *@
+        <div class="col-6 col-md-3">
+            <div class="card stat-card shadow-sm border-0">
                 <div class="card-body">
                     <small class="text-muted">Vehicles</small>
-                    <h3 class="fw-bold">@Model.TotalVehicles</h3>
+                    <h3 class="fw-bold" style="color:#0b1f3b;">@Model.TotalVehicles</h3>
                 </div>
             </div>
         </div>
 
-        <div class="col-6">
-            <div class="card shadow-sm border-0 stat-card">
+        <div class="col-6 col-md-3">
+            <div class="card stat-card shadow-sm border-0">
                 <div class="card-body">
                     <small class="text-muted">Fill Ups</small>
-                    <h3 class="fw-bold">@Model.TotalFillUps</h3>
+                    <h3 class="fw-bold" style="color:#0b1f3b;">@Model.TotalFillUps</h3>
                 </div>
             </div>
         </div>
 
-        <div class="col-6">
-            <div class="card shadow-sm border-0 stat-card">
+        <div class="col-6 col-md-3">
+            <div class="card stat-card shadow-sm border-0">
                 <div class="card-body">
                     <small class="text-muted">Distance Covered</small>
-                    <h3 class="fw-bold">@Model.DistanceCovered km</h3>
+                    <h3 class="fw-bold" style="color:#0b1f3b;">@Model.DistanceCovered km</h3>
                 </div>
             </div>
         </div>
 
-        <div class="col-6">
-            <div class="card shadow-sm border-0 stat-card">
+        <div class="col-6 col-md-3">
+            <div class="card stat-card shadow-sm border-0">
                 <div class="card-body">
                     <small class="text-muted">Fuel Consumption</small>
-                    <h3 class="fw-bold">@Model.FuelConsumption km/l</h3>
+                    <h3 class="fw-bold" style="color:#0b1f3b;">@Model.FuelConsumption km/l</h3>
                 </div>
             </div>
         </div>
 
         <div class="col-12">
-            <div class="card shadow-sm border-0 stat-card highlight-card">
+            <div class="card highlight-card shadow-sm border-0" style="background:#ff8c00;">
                 <div class="card-body">
                     <small>Total Fuel Cost</small>
                     <h3 class="fw-bold">R @Model.TotalFuelPrice</h3>
                 </div>
             </div>
         </div>
-
     </div>
 
-
-    <!-- Vehicles -->
+    <!-- Vehicles Section -->
     <div class="mb-4">
-
         <div class="d-flex justify-content-between align-items-center mb-2">
-            <h5 class="fw-semibold">Vehicles</h5>
-
-            <a asp-controller="Vehicle" asp-action="Index" class="btn btn-sm btn-outline-dark">
-                View All
-            </a>
+            <h5 class="fw-semibold" style="color:#0b1f3b;">Vehicles</h5>
+            <a asp-controller="Vehicle" asp-action="Index" class="btn btn-sm btn-outline-primary">View All</a>
         </div>
 
         @foreach (var vehicle in Model.Vehicles)
         {
-            <div class="card shadow-sm border-0 mb-2">
-
+            <div class="card shadow-sm border-0 mb-2 hover-shadow">
                 <div class="card-body d-flex justify-content-between align-items-center">
-
                     <div>
                         <strong>@vehicle.Make @vehicle.Model</strong>
                         <br />
                         <small class="text-muted">@vehicle.Registration</small>
                     </div>
-
                     <a asp-controller="Vehicle"
                        asp-action="Details"
                        asp-route-id="@vehicle.VehicleId"
-                       class="btn btn-sm btn-dark">
+                       class="btn btn-sm btn-primary">
                         Details
                     </a>
-
                 </div>
-
             </div>
         }
-
     </div>
 
-
-    <!-- Recent Fillups -->
+    <!-- Recent Fillups Section -->
     <div>
-
         <div class="d-flex justify-content-between align-items-center mb-2">
-            <h5 class="fw-semibold">Recent Fillups</h5>
-
-            <a asp-controller="FillUp" asp-action="Index"
-               class="btn btn-sm btn-outline-dark">
-                View All
-            </a>
+            <h5 class="fw-semibold" style="color:#0b1f3b;">Recent Fillups</h5>
+            <a asp-controller="FillUp" asp-action="Index" class="btn btn-sm btn-outline-primary">View All</a>
         </div>
 
         @foreach (var fill in Model.FillUps)
         {
-            <div class="card shadow-sm border-0 mb-2">
-
+            <div class="card shadow-sm border-0 mb-2 hover-shadow">
                 <div class="card-body">
-
                     <div class="d-flex justify-content-between">
-
                         <div>
                             <strong>@fill.Vehicle!.Make @fill.Vehicle.Model</strong>
                             <br />
                             <small class="text-muted">@fill.DateOfFill.ToShortDateString()</small>
                         </div>
-
                         <div class="text-end">
                             <strong>@fill.Litre L</strong>
                             <br />
                             <small class="text-muted">R @fill.Price</small>
                         </div>
-
                     </div>
-
                     <div class="mt-2 text-end">
-
                         <a asp-controller="FillUp"
                            asp-action="Details"
                            asp-route-id="@fill.FillUpId"
-                           class="btn btn-sm btn-dark">
+                           class="btn btn-sm btn-primary">
                             Details
                         </a>
-
                     </div>
-
                 </div>
-
             </div>
         }
-
     </div>
-
 </div>
+
+<style>
+    /* Fuel Dashboard Styling */
+    .stat-card, .highlight-card {
+        background-color: #ffffff;
+        border-radius: 0.5rem;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .highlight-card {
+        border-left: 5px solid #ff8c00;
+    }
+
+    .hover-shadow:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    .btn-primary {
+        background-color: #ff8c00;
+        border-color: #ff8c00;
+        color: #ffffff;
+        font-weight: 500;
+    }
+
+        .btn-primary:hover {
+            background-color: #ffa733;
+            border-color: #ffa733;
+            color: #ffffff;
+        }
+
+    .btn-outline-primary {
+        border-color: #0b1f3b;
+        color: #0b1f3b;
+    }
+
+        .btn-outline-primary:hover {
+            background-color: #0b1f3b;
+            color: #ffffff;
+        }
+</style>

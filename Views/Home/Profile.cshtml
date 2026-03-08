@@ -6,51 +6,59 @@
 
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col col-md-10">
-            <div class="row">
-                <!-- Profile image -->
-                <div class="col-2">
-                    <img src="https://placehold.co/100x100" />
-                </div>
+        <div class="col-md-10">
+            <!-- Profile Card -->
+            <div class="card shadow-sm border-0">
+                <div class="card-body d-flex align-items-center">
+                    <!-- Profile Image -->
+                    <div class="me-3">
+                        <img src="https://placehold.co/100x100" class="rounded-circle border border-2 border-secondary" alt="Profile Picture" />
+                    </div>
 
-                <!-- user details -->
-                <div class="col">
-                    <h4>@Model.FirstName @(Model.LastName ?? "")</h4>
-                    <p class="text-muted"><span class="text-decoration-underline text-primary">@Model.Email</span> - Joined @Model.CreatedOn.ToString("d MMM, yyyy")</p>
+                    <!-- User Details -->
+                    <div>
+                        <h4 class="fw-bold mb-1" style="color:#0b1f3b;">@Model.FirstName @(Model.LastName ?? "")</h4>
+                        <p class="mb-0 text-muted">
+                            <span class="text-decoration-underline" style="color:#ff8c00;">@Model.Email</span>
+                            - Joined @Model.CreatedOn.ToString("d MMM, yyyy")
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- manage vehicles section -->
-        <div class="col-md-10 my-2">
+        <!-- Action Cards -->
+        <div class="col-md-10 mt-4">
             <a asp-controller="Vehicle" asp-action="Index"
                class="d-flex justify-content-between align-items-center
-              text-decoration-none text-dark
-              p-3 border rounded bg-white shadow-sm">
-
+                      p-3 mb-3 border rounded shadow-sm text-decoration-none bg-white hover-shadow"
+               style="color:#0b1f3b;">
                 <span class="fw-semibold">Manage Vehicles</span>
-
-                <span class="text-muted">
-                    <i class="bi bi-chevron-right"></i>
-                </span>
-
+                <i class="bi bi-chevron-right text-muted"></i>
             </a>
-        </div>
 
-        <!-- browse fillups -->
-        <div class="col-md-10 my-2">
             <a asp-controller="FillUp" asp-action="Index"
                class="d-flex justify-content-between align-items-center
-              text-decoration-none text-dark
-              p-3 border rounded bg-white shadow-sm">
-
-                <span class="fw-semibold">Browse fill ups</span>
-
-                <span class="text-muted">
-                    <i class="bi bi-chevron-right"></i>
-                </span>
-
+                      p-3 mb-3 border rounded shadow-sm text-decoration-none bg-white hover-shadow"
+               style="color:#0b1f3b;">
+                <span class="fw-semibold">Browse Fill Ups</span>
+                <i class="bi bi-chevron-right text-muted"></i>
             </a>
         </div>
     </div>
 </div>
+
+<style>
+    .hover-shadow:hover {
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        transition: box-shadow 0.3s ease;
+    }
+
+    .card-body h4 {
+        font-size: 1.5rem;
+    }
+
+    .card-body p {
+        font-size: 0.95rem;
+    }
+</style>
