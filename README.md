@@ -180,8 +180,6 @@ https://localhost:5001
 
 - REST API endpoints
 - Fuel usage charts
-- Authentication and user accounts
-- Mobile responsive dashboard
 - Exportable fuel reports
 
 ---
