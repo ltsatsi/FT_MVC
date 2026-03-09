@@ -103,28 +103,28 @@ This ensures realistic tracking based on actual vehicle usage.
 ## Application Screenshots
 
 ### Landing page (Signed out)
-<img src="wwwroot/images/landing_page2.png" width="40%">
+<img src="wwwroot/images/landing_page2.png" width="100%">
 
 ### Landing page (Signed in)
-<img src="wwwroot/images/landing_page1.png" width="40%">
+<img src="wwwroot/images/landing_page1.png" width="100%">
 
 ### Dashboard
-<img src="wwwroot/images/statistics1.png" width="40%">
+<img src="wwwroot/images/statistics1.png" width="100%">
 
 Displays key statistics and fuel usage insights.
 
 ### Vehicles
-<img src="wwwroot/images/vehicles.png" width="40%">
+<img src="wwwroot/images/vehicles.png" width="100%">
 
 Users can manage multiple vehicles.
 
 ### Fill-Up History
-<img src="wwwroot/images/fill-up_history.png" width="40%">
+<img src="wwwroot/images/fill-up_history.png" width="100%">
 
 Users record fuel purchases and odometer readings.
 
 ### Statistics
-<img src="wwwroot/images/statistics2.png" width="40%">
+<img src="wwwroot/images/statistics2.png" width="100%">
 
 Shows calculated fuel consumption and trends.
 
