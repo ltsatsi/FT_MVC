@@ -1,5 +1,6 @@
 ﻿using FT1.Interfaces;
 using FT1.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace FT1.Controllers
 {
+    [Authorize]
     public class FillUpController : Controller
     {
         private readonly IFillUpRepo fillUpRepo;
@@ -30,6 +32,13 @@ namespace FT1.Controllers
             var filteredFillUps = fillUps.Where(f => f.Vehicle!.Id == user.Id).ToList();
 
             return View(filteredFillUps);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var fillUp = await fillUpRepo.GetByIdAsync(id);
+            return View(fillUp);
         }
 
         [HttpGet]
@@ -69,6 +78,41 @@ namespace FT1.Controllers
             await fillUpRepo.CreateAsync(fillUpModel);
 
             return View(fillUpModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var fillUp = await fillUpRepo.GetByIdAsync(id);
+            ViewBag.VehicleId = fillUp.VehicleId;
+            return View(fillUp);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(FillUp fillUp)
+        {
+            if(!ModelState.IsValid)
+                return View(fillUp);
+
+            await fillUpRepo.UpdateAsync(fillUp);
+            return RedirectToAction(controllerName: "Fuel", actionName: "TrackFuel");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var fillUp = await fillUpRepo.GetByIdAsync(id);
+            return View(fillUp);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(FillUp fillUp)
+        {
+            if (!ModelState.IsValid)
+                return View(fillUp);
+
+            await fillUpRepo.DeleteAsync(fillUp);
+            return View();
         }
     }
 }
