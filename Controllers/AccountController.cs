@@ -36,7 +36,7 @@ namespace FT1.Controllers
             if(!ModelState.IsValid)
                 return View(model);
 
-            var user = new ApplicationUser
+            ApplicationUser user = new ApplicationUser
             {
                 UserName = model.Email,
                 FirstName = model.FirstName,
@@ -47,11 +47,18 @@ namespace FT1.Controllers
                 Vehicles = null,
             };
 
-            await userManager.CreateAsync(user, model.Password);
+            IdentityResult? createUserResult = await userManager.CreateAsync(user, model.Password);
 
-            await signInManager.PasswordSignInAsync(user, model.Password, isPersistent: false, lockoutOnFailure: false);
+            if (createUserResult.Succeeded)
+            {
+                ViewBag.SuccessMessage = $"An account for {user.UserName} was sucessfully created.";
+                return RedirectToAction(nameof(Index), "Home");
+            }
 
-            ViewBag.SuccessMessage = $"An account for {user.UserName} was sucessfully created.";
+            foreach(IdentityError error in createUserResult.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
             return View(model);
         }
 
@@ -67,14 +74,28 @@ namespace FT1.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = await userManager.FindByEmailAsync(model.Email);
+            ApplicationUser? user = await userManager.FindByEmailAsync(model.Email);
 
             if (user is null)
                 return NotFound();
 
-            await signInManager.PasswordSignInAsync(user, model.Password, isPersistent: false, lockoutOnFailure: false);
+            var signInResult = await signInManager.PasswordSignInAsync(user, model.Password, isPersistent: false, lockoutOnFailure: true);
 
-            return RedirectToAction(actionName: "Profile", controllerName: "Home");
+            if (signInResult.Succeeded)
+            {
+                return RedirectToAction(nameof(Index), "Home");
+            } else if (signInResult.IsLockedOut)
+            {
+                ModelState.AddModelError("", "Your account is locked.");
+            } else if (signInResult.IsNotAllowed)
+            {
+                ModelState.AddModelError("", "You are not allowed to sign in.");
+            } else
+            {
+                ModelState.AddModelError("", "Invalid login attempt");
+            }
+
+            return View(model);
         }
 
         [HttpGet]

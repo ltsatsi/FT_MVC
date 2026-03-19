@@ -19,6 +19,13 @@
                 <div class="card-body">
                     <h2 class="mb-4 text-center">Create an account</h2>
                     <form asp-action="Register" method="post">
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <div asp-validation-summary="All"></div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        }
                         <div class="row">
                             <div class="col mb-3">
                                 <label asp-for="FirstName" class="form-label"></label>
