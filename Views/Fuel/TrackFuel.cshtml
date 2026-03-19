@@ -1,160 +1,293 @@
 ﻿@model FT1.ViewModels.TrackFuelViewModel
 
-<div class="container-fluid">
+<!-- HERO SECTION -->
+<div class="hero">
 
-    <!-- Page Title -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h4 class="fw-bold" style="color:#0b1f3b;">Fuel Dashboard</h4>
-            <small class="text-muted">Overview of your fuel activity</small>
+    <div class="container mb-5">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+            <div>
+                <h3 class="fw-bold text-white mb-1">Fuel Dashboard</h3>
+                <small class="text-light">Overview of your fuel activity</small>
+            </div>
+
+            <div class="d-flex flex-column align-items-end">
+                <a asp-controller="FillUp"
+                   asp-action="Create"
+                   class="btn btn-outline-light btn-sm mb-1">
+                    + Refill
+                </a>
+
+                <small class="text-light">Add a new re-fuel</small>
+            </div>
+
         </div>
-        <div class="d-flex flex-column align-items-end">
-            <a asp-controller="FillUp" asp-action="Create" class="btn btn-sm btn-primary mb-1">Refill</a>
-            <small class="text-muted">Add a new re-fuel</small>
-        </div>
+
     </div>
 
-    <!-- Statistics -->
+</div>
+
+
+<!-- STATISTICS (FLOATING CARDS) -->
+<div class="container stats-wrapper">
+
     <div class="row g-3 mb-4">
-        @* Stat Cards *@
+
+        <!-- Vehicles -->
         <div class="col-6 col-md-3">
-            <div class="card stat-card shadow-sm border-0">
+            <div class="card stat-card shadow border-0">
                 <div class="card-body">
                     <small class="text-muted">Vehicles</small>
-                    <h3 class="fw-bold" style="color:#0b1f3b;">@Model.TotalVehicles</h3>
+                    <h3 class="fw-bold">@Model.TotalVehicles</h3>
                 </div>
             </div>
         </div>
 
+        <!-- Fill Ups -->
         <div class="col-6 col-md-3">
-            <div class="card stat-card shadow-sm border-0">
+            <div class="card stat-card shadow border-0">
                 <div class="card-body">
                     <small class="text-muted">Fill Ups</small>
-                    <h3 class="fw-bold" style="color:#0b1f3b;">@Model.TotalFillUps</h3>
+                    <h3 class="fw-bold">@Model.TotalFillUps</h3>
                 </div>
             </div>
         </div>
 
+        <!-- Distance -->
         <div class="col-6 col-md-3">
-            <div class="card stat-card shadow-sm border-0">
+            <div class="card stat-card shadow border-0">
                 <div class="card-body">
                     <small class="text-muted">Distance Covered</small>
-                    <h3 class="fw-bold" style="color:#0b1f3b;">@Model.DistanceCovered km</h3>
+                    <h3 class="fw-bold">@Model.DistanceCovered km</h3>
                 </div>
             </div>
         </div>
 
+        <!-- Consumption -->
         <div class="col-6 col-md-3">
-            <div class="card stat-card shadow-sm border-0">
+            <div class="card stat-card shadow border-0">
                 <div class="card-body">
                     <small class="text-muted">Fuel Consumption</small>
-                    <h3 class="fw-bold" style="color:#0b1f3b;">@Model.FuelConsumption.ToString("f") km/l</h3>
+                    <h3 class="fw-bold">@Model.FuelConsumption.ToString("f") km/l</h3>
                 </div>
             </div>
         </div>
 
+        <!-- Total Cost -->
         <div class="col-12">
-            <div class="card highlight-card shadow-sm border-0" style="background:#ff8c00;">
+            <div class="card highlight-card border-0">
                 <div class="card-body">
                     <small>Total Fuel Cost</small>
-                    <h3 class="fw-bold">R @Model.TotalFuelPrice.ToString("f")</h3>
+                    <h3 class="fw-bold">
+                        R @Model.TotalFuelPrice.ToString("f")
+                    </h3>
                 </div>
             </div>
         </div>
+
     </div>
 
-    <!-- Vehicles Section -->
+</div>
+
+
+<!-- MAIN CONTENT -->
+<div class="container">
+
+    <!-- VEHICLES -->
     <div class="mb-4">
+
         <div class="d-flex justify-content-between align-items-center mb-2">
-            <h5 class="fw-semibold" style="color:#0b1f3b;">Vehicles</h5>
-            <a asp-controller="Vehicle" asp-action="Index" class="btn btn-sm btn-outline-primary">View All</a>
+            <h5 class="fw-semibold">Vehicles</h5>
+
+            <a asp-controller="Vehicle"
+               asp-action="Index"
+               class="btn btn-sm btn-outline-primary">
+                View All
+            </a>
         </div>
 
         @foreach (var vehicle in Model.Vehicles)
         {
             <div class="card shadow-sm border-0 mb-2 hover-shadow">
+
                 <div class="card-body d-flex justify-content-between align-items-center">
+
                     <div>
                         <strong>@vehicle.Make @vehicle.Model</strong>
                         <br />
                         <small class="text-muted">@vehicle.Registration</small>
                     </div>
-                    <a asp-controller="Vehicle"
-                       asp-action="Details"
-                       asp-route-id="@vehicle.VehicleId"
-                       class="btn btn-sm btn-primary">
-                        Details
-                    </a>
+
+                    <div>
+
+                        <a asp-controller="Vehicle"
+                           asp-action="Details"
+                           asp-route-id="@vehicle.VehicleId"
+                           class="btn btn-sm btn-primary">
+                            Details
+                        </a>
+
+                        <a asp-controller="Vehicle"
+                           asp-action="Edit"
+                           asp-route-id="@vehicle.VehicleId"
+                           class="btn btn-sm btn-primary">
+                            Edit
+                        </a>
+
+                        <a asp-controller="Vehicle"
+                           asp-action="Delete"
+                           asp-route-id="@vehicle.VehicleId"
+                           class="btn btn-sm btn-primary">
+                            Delete
+                        </a>
+
+                    </div>
+
                 </div>
+
             </div>
         }
+
     </div>
 
-    <!-- Recent Fillups Section -->
+
+    <!-- RECENT FILLUPS -->
     <div>
+
         <div class="d-flex justify-content-between align-items-center mb-2">
-            <h5 class="fw-semibold" style="color:#0b1f3b;">Recent Fillups</h5>
-            <a asp-controller="FillUp" asp-action="Index" class="btn btn-sm btn-outline-primary">View All</a>
+            <h5 class="fw-semibold">Recent Fillups</h5>
+
+            <a asp-controller="FillUp"
+               asp-action="Index"
+               class="btn btn-sm btn-outline-primary">
+                View All
+            </a>
         </div>
 
         @foreach (var fill in Model.FillUps)
         {
             <div class="card shadow-sm border-0 mb-2 hover-shadow">
+
                 <div class="card-body">
+
                     <div class="d-flex justify-content-between">
+
                         <div>
                             <strong>@fill.Vehicle!.Make @fill.Vehicle.Model</strong>
                             <br />
-                            <small class="text-muted">@fill.DateOfFill.ToShortDateString()</small>
+                            <small class="text-muted">
+                                @fill.DateOfFill.ToShortDateString()
+                            </small>
                         </div>
+
                         <div class="text-end">
                             <strong>@fill.Litre L</strong>
                             <br />
-                            <small class="text-muted">R @fill.Price</small>
+                            <small class="text-muted">
+                                R @fill.Price
+                            </small>
                         </div>
+
                     </div>
+
                     <div class="mt-2 text-end">
+
                         <a asp-controller="FillUp"
                            asp-action="Details"
                            asp-route-id="@fill.FillUpId"
                            class="btn btn-sm btn-primary">
                             Details
                         </a>
+
+                        <a asp-controller="FillUp"
+                           asp-action="Edit"
+                           asp-route-id="@fill.FillUpId"
+                           class="btn btn-sm btn-primary">
+                            Edit
+                        </a>
+
+                        <a asp-controller="FillUp"
+                           asp-action="Delete"
+                           asp-route-id="@fill.FillUpId"
+                           class="btn btn-sm btn-primary">
+                            Delete
+                        </a>
+
                     </div>
+
                 </div>
+
             </div>
         }
+
     </div>
+
 </div>
 
+
 <style>
-    /* Fuel Dashboard Styling */
-    .stat-card, .highlight-card {
-        background-color: #ffffff;
-        border-radius: 0.5rem;
-        transition: transform 0.2s, box-shadow 0.2s;
+
+    /* HERO SECTION */
+
+    .hero {
+        background-color: #1d1d3d;
+        padding: 60px;
+        position: relative;
     }
 
-    .highlight-card {
-        border-left: 5px solid #ff8c00;
+
+    /* FLOATING CARDS */
+
+    .stats-wrapper {
+        margin-top: -80px;
+        position: relative;
+        z-index: 10;
     }
+
+
+    /* STAT CARDS */
+
+    .stat-card {
+        border-radius: 12px;
+        transition: transform .2s, box-shadow .2s;
+    }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+
+    /* HIGHLIGHT CARD */
+
+    .highlight-card {
+        background: #ff8c00;
+        color: white;
+        border-radius: 12px;
+    }
+
+
+    /* CARD HOVER */
 
     .hover-shadow:hover {
         transform: translateY(-3px);
         box-shadow: 0 6px 20px rgba(0,0,0,0.1);
     }
 
+
+    /* BUTTON COLORS */
+
     .btn-primary {
         background-color: #ff8c00;
         border-color: #ff8c00;
-        color: #ffffff;
+        color: #fff;
         font-weight: 500;
     }
 
         .btn-primary:hover {
             background-color: #ffa733;
             border-color: #ffa733;
-            color: #ffffff;
         }
 
     .btn-outline-primary {
@@ -164,6 +297,7 @@
 
         .btn-outline-primary:hover {
             background-color: #0b1f3b;
-            color: #ffffff;
+            color: #fff;
         }
+
 </style>

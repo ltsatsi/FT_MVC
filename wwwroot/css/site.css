@@ -19,6 +19,70 @@ html {
 
 body {
     margin-bottom: 60px;
-    background: #fcfcfc;
+    background: #f6f6f6;
 }
 
+
+/* header style  */
+header {
+    background-color: #1d1d3d;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    border-bottom: 1px solid grey;
+}
+
+/* nav bar style */
+nav {
+    background-color: #1d1d3d;
+    height: 80px;
+    color: #fff;
+}
+
+/* Link base styles */
+ul.floating-underline li a {
+    position: relative;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 400;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+    /* Floating underline effect */
+    ul.floating-underline li a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0%;
+        height: 2px;
+        background-color: #c5c5c5;
+        transition: width 0.3s ease, transform 0.3s ease;
+        transform-origin: right;
+    }
+
+    /* On hover */
+    ul.floating-underline li a:hover::after {
+        width: 100%;
+        transform-origin: left;
+    }
+
+    /* Optional: change text color on hover */
+    ul.floating-underline li a:hover {
+        color: #c5c5c5;
+    }
+
+.hero-section {
+    background: url('../images/hero_image.jpg') no-repeat center center/cover;
+    height: 65vh;
+}
+
+.navbar-collapse {
+    text-align: center;
+    background-color: #1d1d3d;
+    padding: 0;
+    margin: 0;
+}

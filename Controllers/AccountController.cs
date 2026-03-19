@@ -77,7 +77,7 @@ namespace FT1.Controllers
             return RedirectToAction(actionName: "Profile", controllerName: "Home");
         }
 
-        [HttpPost]
+        [HttpGet]
         [Authorize]
         public new async Task<IActionResult> SignOut()  
         {

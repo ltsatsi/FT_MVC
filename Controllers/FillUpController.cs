@@ -108,11 +108,8 @@ namespace FT1.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(FillUp fillUp)
         {
-            if (!ModelState.IsValid)
-                return View(fillUp);
-
             await fillUpRepo.DeleteAsync(fillUp);
-            return View();
+            return View(fillUp);
         }
     }
 }

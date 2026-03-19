@@ -19,8 +19,21 @@ namespace FT1.Controllers
             this.userManager = userManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var user = await userManager.GetUserAsync(User);
+
+            if(user != null)
+            {
+
+                var model = new HomeViewModel
+                {
+                    Name = $"{user!.FirstName} {user?.LastName ?? ""}",
+                };
+
+                return View(model);
+            }
+
             return View();
         }
 

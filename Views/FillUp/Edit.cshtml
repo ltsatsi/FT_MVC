@@ -1,57 +1,189 @@
 ﻿@model FT1.Models.FillUp
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Fuel Record";
 }
 
-<h1>Edit</h1>
+<div class="container py-4">
 
-<h4>FillUp</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="FillUpId" />
-            <div class="form-group">
-                <label asp-for="StationName" class="control-label"></label>
-                <input asp-for="StationName" class="form-control" />
-                <span asp-validation-for="StationName" class="text-danger"></span>
+    <!-- Header -->
+    <div class="mb-4">
+        <h3 class="fw-bold" style="color:#0b1f3b;">Edit Fuel Record</h3>
+        <p class="text-muted mb-0">
+            Update this fuel entry carefully. Changes may affect your fuel tracking history and analytics.
+        </p>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- LEFT: FORM -->
+        <div class="col-lg-8">
+
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+
+                    <form asp-action="Edit">
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <input type="hidden" asp-for="FillUpId" />
+                        <input type="hidden" asp-for="VehicleId" value="@ViewBag.VehicleId" />
+
+                        <!-- SECTION 1 -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold text-uppercase text-muted">Editable Details</h6>
+                            <small class="text-muted">
+                                These fields can be updated if incorrect or missing.
+                            </small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="StationName" class="form-label fw-semibold"></label>
+                            <input asp-for="StationName" class="form-control" />
+                            <small class="text-muted">
+                                Update only if the station name was entered incorrectly.
+                            </small>
+                            <span asp-validation-for="StationName" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="DateOfFill" class="form-label fw-semibold"></label>
+                            <input asp-for="DateOfFill" class="form-control" type="date" />
+                            <small class="text-muted">
+                                Avoid changing the date unless the original entry is wrong.
+                            </small>
+                            <span asp-validation-for="DateOfFill" class="text-danger"></span>
+                        </div>
+
+                        <!-- SECTION 2 -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold text-uppercase text-muted">Fuel Metrics</h6>
+                            <small class="text-muted">
+                                Modifying these values impacts fuel consumption calculations.
+                            </small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Price" class="form-label fw-semibold"></label>
+                            <input asp-for="Price" class="form-control" />
+                            <small class="text-muted">
+                                Ensure this matches the actual receipt value.
+                            </small>
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Litre" class="form-label fw-semibold"></label>
+                            <input asp-for="Litre" class="form-control" />
+                            <small class="text-muted">
+                                Incorrect litres will distort fuel efficiency tracking.
+                            </small>
+                            <span asp-validation-for="Litre" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Odometer" class="form-label fw-semibold"></label>
+                            <input asp-for="Odometer" class="form-control" />
+                            <small class="text-muted">
+                                ⚠ Only update if recorded incorrectly — affects mileage trends.
+                            </small>
+                            <span asp-validation-for="Odometer" class="text-danger"></span>
+                        </div>
+
+                        <hr class="my-4" />
+
+                        <!-- ACTIONS -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+
+                            <button type="submit" class="btn btn-primary px-4">
+                                Save Changes
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <!-- RIGHT: GUIDANCE PANEL -->
+        <div class="col-lg-4">
+
+            <div class="card border-0 shadow-sm bg-light">
+                <div class="card-body p-4">
+
+                    <h6 class="fw-bold mb-3">Editing Guidelines</h6>
+
+                    <ul class="ps-3 text-muted small">
+                        <li class="mb-2">
+                            Only update fields that were entered incorrectly.
+                        </li>
+                        <li class="mb-2">
+                            Avoid changing the <strong>date</strong> unless necessary.
+                        </li>
+                        <li class="mb-2">
+                            Do not modify <strong>odometer readings</strong> unless incorrect — this affects mileage tracking.
+                        </li>
+                        <li class="mb-2">
+                            Ensure <strong>price and litres</strong> match your receipt.
+                        </li>
+                    </ul>
+
+                    <hr />
+
+                    <div class="p-3 rounded mb-3" style="background:#fff3cd;">
+                        <small class="text-dark">
+                            ⚠ Frequent changes may reduce the accuracy of fuel analytics and reporting.
+                        </small>
+                    </div>
+
+                    <div class="p-3 rounded" style="background:#e9f7ef;">
+                        <small class="text-dark">
+                            ✔ Tip: If the record is completely wrong, consider deleting it and creating a new one.
+                        </small>
+                    </div>
+
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Litre" class="control-label"></label>
-                <input asp-for="Litre" class="form-control" />
-                <span asp-validation-for="Litre" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Odometer" class="control-label"></label>
-                <input asp-for="Odometer" class="form-control" />
-                <span asp-validation-for="Odometer" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateOfFill" class="control-label"></label>
-                <input asp-for="DateOfFill" class="form-control" />
-                <span asp-validation-for="DateOfFill" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="hidden" asp-for="VehicleId" value="@ViewBag.VehicleId" />
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+
+        </div>
+
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<style>
+    .card {
+        border-radius: 12px;
+    }
+
+    .btn-primary {
+        background-color: #1d1d3d;
+        border-color: #1d1d3d;
+        font-weight: 500;
+    }
+
+        .btn-primary:hover {
+            background-color: #0b1f3b;
+            border-color: #0b1f3b;
+        }
+
+    .form-control {
+        border-radius: 8px;
+    }
+
+        .form-control:focus {
+            border-color: #0b1f3b;
+            box-shadow: 0 0 0 0.15rem rgba(11,31,59,0.15);
+        }
+
+    .hover-shadow:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+</style>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

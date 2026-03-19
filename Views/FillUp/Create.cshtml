@@ -4,111 +4,158 @@
     ViewData["Title"] = "Add Fill Up";
 }
 
-<div class="container mt-4">
+<div class="container py-4">
 
-    <div class="row justify-content-center">
-        <div class="col-md-6">
+    <!-- Page Header -->
+    <div class="mb-4">
+        <h3 class="fw-bold" style="color:#0b1f3b;">Add Fuel Fill-Up</h3>
+        <p class="text-muted mb-0">
+            Record your fuel purchase to track consumption, cost, and vehicle performance.
+        </p>
+    </div>
 
-            <div class="card shadow-sm border-0">
-                <div class="card-body">
+    <div class="row g-4">
 
-                    <h4 class="fw-bold mb-1" style="color:#0b1f3b;">Add Fill Up</h4>
-                    <small class="text-muted">Record a new fuel refill</small>
+        <!-- LEFT: FORM -->
+        <div class="col-lg-8">
 
-                    <hr />
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
 
                     <form asp-action="Create">
 
                         <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        <input type="hidden" asp-for="VehicleId" value="@ViewBag.VehicleId" />
 
-                        <div class="mb-3">
-                            <label asp-for="StationName" class="form-label"></label>
-                            <input asp-for="StationName"
-                                   class="form-control"
-                                   placeholder="e.g. Shell, Engen, BP" />
-                            <span asp-validation-for="StationName" class="text-danger"></span>
+                        <!-- SECTION 1 -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold text-uppercase text-muted">Fuel Details</h6>
+                            <small class="text-muted">Enter where and when the fill-up occurred.</small>
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="Price" class="form-label"></label>
-                            <input asp-for="Price"
-                                   class="form-control"
-                                   placeholder="Total price (R)" />
+                            <label asp-for="StationName" class="form-label fw-semibold"></label>
+                            <input asp-for="StationName" class="form-control" placeholder="e.g. Shell, Engen, BP" />
+                            <small class="text-muted">Name of the fuel station.</small>
+                            <span asp-validation-for="StationName" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="DateOfFill" class="form-label fw-semibold"></label>
+                            <input asp-for="DateOfFill" class="form-control" type="date" />
+                            <small class="text-muted">Select the date you filled your vehicle.</small>
+                            <span asp-validation-for="DateOfFill" class="text-danger"></span>
+                        </div>
+
+                        <!-- SECTION 2 -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold text-uppercase text-muted">Fuel Metrics</h6>
+                            <small class="text-muted">Provide accurate fuel and cost details.</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Price" class="form-label fw-semibold"></label>
+                            <input asp-for="Price" class="form-control" placeholder="Total cost (e.g. 850.00)" />
+                            <small class="text-muted">Total amount paid in Rands.</small>
                             <span asp-validation-for="Price" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="Litre" class="form-label"></label>
-                            <input asp-for="Litre"
-                                   class="form-control"
-                                   placeholder="Litres filled" />
+                            <label asp-for="Litre" class="form-label fw-semibold"></label>
+                            <input asp-for="Litre" class="form-control" placeholder="Litres filled (e.g. 45)" />
+                            <small class="text-muted">Enter how many litres were filled.</small>
                             <span asp-validation-for="Litre" class="text-danger"></span>
                         </div>
 
-                        <div class="mb-3">
-                            <label asp-for="Odometer" class="form-label"></label>
-                            <input asp-for="Odometer"
-                                   class="form-control"
-                                   placeholder="Vehicle odometer (km)" />
+                        <div class="mb-4">
+                            <label asp-for="Odometer" class="form-label fw-semibold"></label>
+                            <input asp-for="Odometer" class="form-control" placeholder="e.g. 125000" />
+                            <small class="text-muted">Current vehicle mileage in kilometers.</small>
                             <span asp-validation-for="Odometer" class="text-danger"></span>
                         </div>
 
-                        <div class="mb-3">
-                            <label asp-for="DateOfFill" class="form-label"></label>
-                            <input asp-for="DateOfFill"
-                                   class="form-control"
-                                   type="date" />
-                            <span asp-validation-for="DateOfFill" class="text-danger"></span>
-                        </div>
+                        <hr class="my-4" />
 
-                        <div class="mb-3">
-                            <label asp-for="VehicleId" class="form-label"></label>
-                            <select asp-for="VehicleId"
-                                    class="form-select"
-                                    asp-items="ViewBag.VehicleId">
-                            </select>
-                        </div>
+                        <!-- ACTIONS -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
 
-                        <div class="d-flex justify-content-between mt-4">
-
-                            <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
-                                Back
-                            </a>
-
-                            <button type="submit" class="btn btn-primary btn-sm">
-                                Save Fill Up
+                            <button type="submit" class="btn btn-primary px-4">
+                                Save Fill-Up
                             </button>
-
                         </div>
 
                     </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT: GUIDANCE PANEL -->
+        <div class="col-lg-4">
+
+            <div class="card border-0 shadow-sm bg-light">
+                <div class="card-body p-4">
+
+                    <h6 class="fw-bold mb-3">How to complete this form</h6>
+
+                    <ul class="ps-3 text-muted small">
+                        <li class="mb-2">
+                            Enter the <strong>fuel station name</strong> where you filled up.
+                        </li>
+                        <li class="mb-2">
+                            Select the <strong>correct date</strong> of the transaction.
+                        </li>
+                        <li class="mb-2">
+                            Provide the <strong>total price paid</strong> in Rands.
+                        </li>
+                        <li class="mb-2">
+                            Enter the <strong>exact litres filled</strong> for accuracy.
+                        </li>
+                        <li class="mb-2">
+                            Update your <strong>odometer reading</strong> to track consumption trends.
+                        </li>
+                    </ul>
+
+                    <hr />
+
+                    <div class="p-3 rounded" style="background:#fff3cd;">
+                        <small class="text-dark">
+                            💡 Accurate entries improve fuel analytics and cost tracking over time.
+                        </small>
+                    </div>
 
                 </div>
             </div>
 
         </div>
-    </div>
 
+    </div>
 </div>
 
 <style>
+    .card {
+        border-radius: 12px;
+    }
 
     .btn-primary {
-        background-color: #ff8c00;
-        border-color: #ff8c00;
+        background-color: #1d1d3d;
+        border-color: #1d1d3d;
+        font-weight: 500;
     }
 
         .btn-primary:hover {
-            background-color: #e67e00;
-            border-color: #e67e00;
+            background-color: #0b1f3b;
+            border-color: #0b1f3b;
         }
 
-    .form-control:focus,
-    .form-select:focus {
-        border-color: #0b1f3b;
-        box-shadow: 0 0 0 0.15rem rgba(11,31,59,0.15);
+    .form-control {
+        border-radius: 8px;
     }
 
+        .form-control:focus {
+            border-color: #0b1f3b;
+            box-shadow: 0 0 0 0.15rem rgba(11,31,59,0.15);
+        }
 </style>
 
 @section Scripts {

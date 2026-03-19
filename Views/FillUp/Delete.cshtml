@@ -1,51 +1,62 @@
 ﻿@model FT1.Models.FillUp
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete Fill Up";
 }
 
-<h1>Delete</h1>
+<div class="container mt-5">
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>FillUp</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StationName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StationName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Litre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Litre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Odometer)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Odometer)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateOfFill)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateOfFill)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="FillUpId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0">Delete Fuel Record</h4>
+        </div>
+
+        <div class="card-body">
+
+            <p class="text-danger fw-bold">
+                Are you sure you want to delete this fuel entry?
+            </p>
+
+            <hr />
+
+            <div class="row mb-2">
+                <div class="col-12 col-md-4 fw-semibold text-muted small">Station</div>
+                <div class="col-12 col-md-8">@Model.StationName</div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-12 col-md-4 fw-semibold text-muted small">Price</div>
+                <div class="col-12 col-md-8">R @Model.Price</div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-12 col-md-4 fw-semibold text-muted small">Litres</div>
+                <div class="col-12 col-md-8">@Model.Litre L</div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-12 col-md-4 fw-semibold text-muted small">Odometer</div>
+                <div class="col-12 col-md-8">@Model.Odometer km</div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-12 col-md-4 fw-semibold text-muted small">Date</div>
+                <div class="col-12 col-md-8">@Model.DateOfFill.ToShortDateString()</div>
+            </div>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="FillUpId" />
+
+                <button type="submit" class="btn btn-danger">
+                    Delete Record
+                </button>
+
+                <a asp-action="Index" class="btn btn-secondary ms-2">
+                    Cancel
+                </a>
+            </form>
+
+        </div>
+    </div>
+
 </div>
