@@ -4,28 +4,166 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<div class="container py-4">
 
-<div>
-    <h4>Vehicle</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Registration)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Registration)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Make)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Make)
-        </dd>
-    </dl>
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-1" style="color:#0b1f3b;">Vehicle Details</h3>
+            <small class="text-muted">Overview of your vehicle</small>
+        </div>
+
+        <a asp-action="Index" class="btn btn-outline-secondary btn-sm">Back</a>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- MAIN CARD -->
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+
+                    <!-- Top Section -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+
+                        <div>
+                            <h5 class="fw-bold mb-1">@Model.Make</h5>
+                            <small class="text-muted">
+                                @Model.Registration
+                            </small>
+                        </div>
+
+                    </div>
+
+                    <hr />
+
+                    <!-- Metrics -->
+                    <div class="row g-3 mt-1">
+
+                        <!-- Registration -->
+                        <div class="col-md-6">
+                            <div class="metric-card text-center p-3">
+                                <small class="text-muted d-block mb-1">Registration</small>
+                                <h5 class="fw-bold mb-0">@Model.Registration</h5>
+                            </div>
+                        </div>
+
+                        <!-- Make -->
+                        <div class="col-md-6">
+                            <div class="metric-card text-center p-3">
+                                <small class="text-muted d-block mb-1">Make</small>
+                                <h5 class="fw-bold mb-0">@Model.Make</h5>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <hr class="my-4" />
+
+                    <!-- Actions -->
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <a asp-action="Edit"
+                           asp-route-id="@Model?.VehicleId"
+                           class="btn btn-primary px-4">
+                            Edit Vehicle
+                        </a>
+
+                        <a asp-action="Delete"
+                           asp-route-id="@Model?.VehicleId"
+                           class="btn btn-outline-danger">
+                            Delete
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- SIDE PANEL -->
+        <div class="col-lg-4">
+
+            <div class="card border-0 shadow-sm bg-light">
+                <div class="card-body p-4">
+
+                    <h6 class="fw-bold mb-3">Insights</h6>
+
+                    <div class="mb-3">
+                        <small class="text-muted">Vehicle Status</small>
+                        <div class="fw-semibold">
+                            Active
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <small class="text-muted">Tracking</small>
+                        <div class="fw-semibold">
+                            Enabled
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="p-3 rounded" style="background:#e9f7ef;">
+                        <small class="text-dark">
+                            ✔ Tip: Keep your vehicle details updated for accurate fuel tracking.
+                        </small>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.VehicleId">Edit</a> |
-    <a asp-action="Delete" asp-route-id="@Model?.VehicleId">Delete</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+<style>
+    .card {
+        border-radius: 12px;
+    }
+
+    .metric-card {
+        background: #f8f9fa;
+        border-radius: 10px;
+        transition: 0.2s ease;
+    }
+
+        .metric-card:hover {
+            background: #eef1f4;
+            transform: translateY(-2px);
+        }
+
+    .btn-primary {
+        background-color: #1d1d3d;
+        border-color: #1d1d3d;
+        font-weight: 500;
+    }
+
+        .btn-primary:hover {
+            background-color: #0b1f3b;
+            border-color: #0b1f3b;
+        }
+
+    .btn-outline-danger {
+        border-color: #dc3545;
+        color: #dc3545;
+    }
+
+        .btn-outline-danger:hover {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+    .btn-outline-secondary {
+        border-color: #6c757d;
+        color: #6c757d;
+    }
+
+        .btn-outline-secondary:hover {
+            background-color: #6c757d;
+            color: #fff;
+        }
+</style>
