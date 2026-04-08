@@ -1,5 +1,5 @@
-﻿using FT1.Interfaces;
-using FT1.Models;
+﻿using FT1.Models;
+using FT1_ServiceLayer.ICustomService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,16 +10,16 @@ namespace FT1.Controllers
 {
     [Authorize]
     public class FillUpController : Controller
-    {
-        private readonly IFillUpRepo fillUpRepo;
+    {   
+        private readonly ICustomService<FillUp> fillUpService;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IVehicleRepo vehicleRepo;
-        public FillUpController(IFillUpRepo fillUpRepo, UserManager<ApplicationUser> userManager, IVehicleRepo vehicleRepo)
+        private readonly ICustomService<Vehicle> vehicleService;
+        public FillUpController(ICustomService<FillUp> fillUpService, UserManager<ApplicationUser> userManager, ICustomService<Vehicle> vehicleService)
         {
-            this.fillUpRepo = fillUpRepo;
-            this.userManager = userManager;
-            this.vehicleRepo = vehicleRepo;
-        }
+            this.fillUpService = fillUpService ?? throw new ArgumentNullException(nameof(fillUpService));
+            this.userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
+            this.vehicleService = vehicleService ?? throw new ArgumentNullException(nameof(vehicleService));
+        } // end constructor
 
         public async Task<IActionResult> Index()
         {
@@ -28,18 +28,18 @@ namespace FT1.Controllers
             if (user == null)
                 return RedirectToAction("Login", "Account");
 
-            var fillUps = await fillUpRepo.GetAllAsync();
+            var fillUps = await fillUpService.GetAllAsync();
             var filteredFillUps = fillUps.Where(f => f.Vehicle!.Id == user.Id).ToList();
 
             return View(filteredFillUps);
-        }
+        } // end method
 
         [HttpGet]
         public async Task<IActionResult> Details(Guid id)
         {
-            var fillUp = await fillUpRepo.GetByIdAsync(id);
+            var fillUp = await fillUpService.GetByIdAsync(id);
             return View(fillUp);
-        }
+        } // end method
 
         [HttpGet]
         public async Task<IActionResult> Create()
@@ -49,7 +49,7 @@ namespace FT1.Controllers
             if (user == null)
                 return RedirectToAction("Login", "Account");
 
-            var vehicles = await vehicleRepo.GetAllAsync(); 
+            var vehicles = await vehicleService.GetAllAsync(); 
             var filteredVehicles = vehicles.Where(v => v.Id == user.Id).ToList();
 
             ViewBag.VehicleId = new SelectList(
@@ -63,7 +63,7 @@ namespace FT1.Controllers
             );
 
             return View(new FillUp());
-        }
+        } // end method
 
         [HttpPost]
         public async Task<IActionResult> Create(FillUp fillUpModel)
@@ -75,18 +75,18 @@ namespace FT1.Controllers
             }
 
             fillUpModel.CreatedOn = DateTime.UtcNow;
-            await fillUpRepo.CreateAsync(fillUpModel);
+            await fillUpService.CreateAsync(fillUpModel);
 
             return View(fillUpModel);
-        }
+        } // end method
 
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            var fillUp = await fillUpRepo.GetByIdAsync(id);
+            var fillUp = await fillUpService.GetByIdAsync(id);
             ViewBag.VehicleId = fillUp.VehicleId;
             return View(fillUp);
-        }
+        } // end method
 
         [HttpPost]
         public async Task<IActionResult> Edit(FillUp fillUp)
@@ -94,22 +94,22 @@ namespace FT1.Controllers
             if(!ModelState.IsValid)
                 return View(fillUp);
 
-            await fillUpRepo.UpdateAsync(fillUp);
+            await fillUpService.UpdateAsync(fillUp);
             return RedirectToAction(controllerName: "Fuel", actionName: "TrackFuel");
-        }
+        } // end method
 
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var fillUp = await fillUpRepo.GetByIdAsync(id);
+            var fillUp = await fillUpService.GetByIdAsync(id);
             return View(fillUp);
-        }
+        } // end method
 
         [HttpPost]
         public async Task<IActionResult> Delete(FillUp fillUp)
         {
-            await fillUpRepo.DeleteAsync(fillUp);
+            await fillUpService.DeleteAsync(fillUp);
             return View(fillUp);
-        }
-    }
-}
+        } // end method
+    } // end class
+} // end namespace

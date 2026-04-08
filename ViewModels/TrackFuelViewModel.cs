@@ -1,5 +1,4 @@
-﻿using FT1.Interfaces;
-using FT1.Models;
+﻿using FT1.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace FT1.ViewModels

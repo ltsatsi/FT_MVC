@@ -1,8 +1,7 @@
 ﻿using FT1.Infrastructure;
-using FT1.Interfaces;
 using FT1.Models;
-using FT1.Services;
 using FT1.ViewModels;
+using FT1_ServiceLayer.ICustomService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,20 +13,20 @@ namespace FT1.Controllers
     public class FuelController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IVehicleRepo vehicleRepo;
-        private readonly IFillUpRepo fillUpRepo;
+        private readonly ICustomService<Vehicle> vehicleService;
+        private readonly ICustomService<FillUp> fillUpService;
         private readonly IFuelService fuelService;
 
         public FuelController(
             UserManager<ApplicationUser> userManager,
-            IVehicleRepo vehicleRepo,
-            IFillUpRepo fillUpRepo,
+            ICustomService<Vehicle> vehicleService,
+            ICustomService<FillUp> fillUpService,
             IFuelService fuelService)
         {
-            this.userManager = userManager;
-            this.vehicleRepo = vehicleRepo;
-            this.fillUpRepo = fillUpRepo;
-            this.fuelService = fuelService;
+            this.userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
+            this.vehicleService = vehicleService ?? throw new ArgumentNullException(nameof(vehicleService));
+            this.fillUpService = fillUpService ?? throw new ArgumentNullException(nameof(fillUpService));
+            this.fuelService = fuelService ?? throw new ArgumentNullException(nameof(fuelService));
         }
 
         public IActionResult Index()
@@ -38,8 +37,8 @@ namespace FT1.Controllers
         public async Task<IActionResult> TrackFuel()
         {
             var user = await userManager.GetUserAsync(User);
-            var vehicles = await vehicleRepo.GetAllAsync();
-            var fillUps = await fillUpRepo.GetAllAsync();
+            var vehicles = await vehicleService.GetAllAsync();
+            var fillUps = await fillUpService.GetAllAsync();
 
             if (user is null)
                 return RedirectToAction("Login", "Account");

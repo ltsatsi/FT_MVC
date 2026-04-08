@@ -28,6 +28,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FT1_DomainLayer\FT1_DomainLayer.csproj" />
+    <ProjectReference Include="..\FT1_RepositoryLayer\FT1_RepositoryLayer.csproj" />
+    <ProjectReference Include="..\FT1_ServiceLayer\FT1_ServiceLayer.csproj" />
   </ItemGroup>
 
 </Project>

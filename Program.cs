@@ -1,8 +1,9 @@
 using FT1.Data;
-using FT1.Interfaces;
 using FT1.Models;
-using FT1.Repositories;
-using FT1.Services;
+using FT1_RepositoryLayer.IRepository;
+using FT1_RepositoryLayer.Repository;
+using FT1_ServiceLayer.CustomService;
+using FT1_ServiceLayer.ICustomService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,12 +21,13 @@ namespace FT1
             builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<ApplicationDBContext>();
 
-            builder.Services.AddScoped<IVehicleRepo, VehicleRepo>();
-            builder.Services.AddScoped<IFillUpRepo, FillUpRepo>();
-            builder.Services.AddScoped<IFuelService, FuelService>();
-
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            builder.Services.AddScoped<ICustomService<Vehicle>, VehicleService>();
+            builder.Services.AddScoped<ICustomService<FillUp>, FillUpService>();
+            builder.Services.AddScoped<IFuelService, FuelService>();
 
             var app = builder.Build();
 

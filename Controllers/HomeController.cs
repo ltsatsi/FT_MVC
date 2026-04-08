@@ -15,8 +15,8 @@ namespace FT1.Controllers
 
         public HomeController(ILogger<HomeController> logger, UserManager<ApplicationUser> userManager)
         {
-            _logger = logger;
-            this.userManager = userManager;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
         }
 
         public async Task<IActionResult> Index()

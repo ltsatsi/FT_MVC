@@ -1,5 +1,5 @@
-﻿using FT1.Interfaces;
-using FT1.Models;
+﻿using FT1.Models;
+using FT1_ServiceLayer.ICustomService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,17 +10,17 @@ namespace FT1.Controllers
     [Authorize]
     public class VehicleController : Controller
     {
-        private readonly IVehicleRepo vehicleRepo;
+        private readonly ICustomService<Vehicle> vehicleService;
         private readonly UserManager<ApplicationUser> userManager;
-        public VehicleController(IVehicleRepo vehicleRepo, UserManager<ApplicationUser> userManager)
+        public VehicleController(ICustomService<Vehicle> vehicleService, UserManager<ApplicationUser> userManager)
         {
-            this.vehicleRepo = vehicleRepo;
-            this.userManager = userManager;
+            this.vehicleService = vehicleService ?? throw new ArgumentNullException(nameof(vehicleService));
+            this.userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
         }
 
         public async Task<IActionResult> Index()
         {
-            var vehicles = await vehicleRepo.GetAllAsync();
+            var vehicles = await vehicleService.GetAllAsync();
             var user = await userManager.GetUserAsync(User);
 
             if (user is null)
@@ -34,7 +34,7 @@ namespace FT1.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(Guid id)
         {
-            var vehicle = await vehicleRepo.GetByIdAsync(id);
+            var vehicle = await vehicleService.GetByIdAsync(id);
             return View(vehicle);
         }
 
@@ -56,10 +56,8 @@ namespace FT1.Controllers
             if (!ModelState.IsValid)
                 return View(vehicleModel);
 
-            // sever-side
             vehicleModel.CreatedOn = DateTime.UtcNow;
-
-            vehicleModel = await vehicleRepo.CreateAsync(vehicleModel);    
+            await vehicleService.CreateAsync(vehicleModel);    
 
             return RedirectToAction(nameof(Index), "Home");
         }
@@ -67,7 +65,7 @@ namespace FT1.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            var vehicle = await vehicleRepo.GetByIdAsync(id);
+            var vehicle = await vehicleService.GetByIdAsync(id);
 
             var user = await userManager.GetUserAsync(User);
 
@@ -86,7 +84,7 @@ namespace FT1.Controllers
                 return View(vehicleModel);
 
             vehicleModel.ModifiedOn = DateTime.UtcNow;
-            await vehicleRepo.UpdateAsync(vehicleModel);
+            await vehicleService.UpdateAsync(vehicleModel);
 
             return RedirectToAction(actionName: "TrackFuel", controllerName: "Fuel");
         }
@@ -94,14 +92,14 @@ namespace FT1.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var vehicle = await vehicleRepo.GetByIdAsync(id);
+            var vehicle = await vehicleService.GetByIdAsync(id);
             return View(vehicle);
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(Vehicle vehicleModel)
         {
-            await vehicleRepo.DeleteAsync(vehicleModel);
+            await vehicleService.DeleteAsync(vehicleModel);
             return RedirectToAction(actionName: "TrackFuel", controllerName: "Fuel");
         }
     }
